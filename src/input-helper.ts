@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 import * as fsHelper from './fs-helper'
 import * as github from '@actions/github'
 import * as path from 'path'
-import {IGitSourceSettings} from './git-source-settings'
+import { IGitSourceSettings } from './git-source-settings'
 
 export function getInputs(): IGitSourceSettings {
   const result = ({} as unknown) as IGitSourceSettings
@@ -106,7 +106,7 @@ export function getInputs(): IGitSourceSettings {
   core.debug(`recursive submodules = ${result.nestedSubmodules}`)
 
   // Auth token
-  result.authToken = core.getInput('token', {required: true})
+  result.authToken = core.getInput('token', { required: true })
 
   // SSH
   result.sshKey = core.getInput('ssh-key')

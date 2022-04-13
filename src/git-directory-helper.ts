@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import * as fsHelper from './fs-helper'
 import * as io from '@actions/io'
 import * as path from 'path'
-import {IGitCommandManager} from './git-command-manager'
+import { IGitCommandManager } from './git-command-manager'
 
 export async function prepareExistingDirectory(
   git: IGitCommandManager | undefined,

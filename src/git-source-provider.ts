@@ -9,8 +9,8 @@ import * as path from 'path'
 import * as refHelper from './ref-helper'
 import * as stateHelper from './state-helper'
 import * as urlHelper from './url-helper'
-import {IGitCommandManager} from './git-command-manager'
-import {IGitSourceSettings} from './git-source-settings'
+import { IGitCommandManager } from './git-command-manager'
+import { IGitSourceSettings } from './git-source-settings'
 
 export async function getSource(settings: IGitSourceSettings): Promise<void> {
   // Repository URL

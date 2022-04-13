@@ -6,8 +6,8 @@ import * as io from '@actions/io'
 import * as path from 'path'
 import * as retryHelper from './retry-helper'
 import * as toolCache from '@actions/tool-cache'
-import {default as uuid} from 'uuid/v4'
-import {Octokit} from '@octokit/rest'
+import { default as uuid } from 'uuid/v4'
+import { Octokit } from '@octokit/rest'
 
 const IS_WINDOWS = process.platform === 'win32'
 
@@ -65,7 +65,7 @@ export async function downloadRepository(
     const sourcePath = path.join(tempRepositoryPath, fileName)
     const targetPath = path.join(repositoryPath, fileName)
     if (IS_WINDOWS) {
-      await io.cp(sourcePath, targetPath, {recursive: true}) // Copy on Windows (Windows Defender may have a lock)
+      await io.cp(sourcePath, targetPath, { recursive: true }) // Copy on Windows (Windows Defender may have a lock)
     } else {
       await io.mv(sourcePath, targetPath)
     }
@@ -87,7 +87,7 @@ export async function getDefaultBranch(
     let result: string
     try {
       // Get the default branch from the repo info
-      const response = await octokit.repos.get({owner, repo})
+      const response = await octokit.repos.get({ owner, repo })
       result = response.data.default_branch
       assert.ok(result, 'default_branch cannot be empty')
     } catch (err) {

@@ -6,7 +6,7 @@ import * as path from 'path'
 import * as refHelper from './ref-helper'
 import * as regexpHelper from './regexp-helper'
 import * as retryHelper from './retry-helper'
-import {GitVersion} from './git-version'
+import { GitVersion } from './git-version'
 
 // Auth header not supported before 2.9
 // Wire protocol v2 not supported before 2.18
@@ -65,7 +65,7 @@ class GitCommandManager {
   private workingDirectory = ''
 
   // Private constructor; use createCommandManager()
-  private constructor() {}
+  private constructor() { }
 
   async branchDelete(remote: boolean, branch: string): Promise<void> {
     const args = ['branch', '--delete', '--force']
