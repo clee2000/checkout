@@ -125,7 +125,7 @@ export async function getSource(settings: IGitSourceSettings): Promise<void> {
 
     // Fetch
     core.startGroup('Fetching the repository')
-    if (settings.fetchDepth <= 0) {
+    if (settings.fetchDepth == 0) {
       // Fetch all branches and tags
       let refSpec = refHelper.getRefSpecForAllHistory(
         settings.ref,
@@ -140,6 +140,14 @@ export async function getSource(settings: IGitSourceSettings): Promise<void> {
         await git.fetch(refSpec)
       }
     } else {
+      if (settings.additionalRefs) {
+        // assume same length
+        let refSpec: string[] = []
+        for (let ref of settings.additionalRefs.split(" ")) {
+          refSpec.push.apply(refSpec, refHelper.getRefSpec(ref, ''))
+        }
+        await git.fetch(refSpec, -1)
+      }
       const refSpec = refHelper.getRefSpec(settings.ref, settings.commit)
       await git.fetch(refSpec, settings.fetchDepth)
     }

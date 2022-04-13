@@ -73,4 +73,9 @@ export interface IGitSourceSettings {
    * Indicates whether to persist the credentials on disk to enable scripting authenticated git commands
    */
   persistCredentials: boolean
+
+  /**
+   * Additional refs to checkout
+    */
+  additionalRefs: string
 }

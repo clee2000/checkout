@@ -59,6 +59,8 @@ inputs:
   lfs:
     description: "Whether to download Git-LFS files"
     default: false
+  additional-refs:
+    description: "Additional refs to checkout"
   submodules:
     description: >
       Whether to checkout submodules: `true` to checkout submodules or `recursive` to

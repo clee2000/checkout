@@ -6216,7 +6216,7 @@ function getSource(settings) {
             }
             // Fetch
             core.startGroup('Fetching the repository');
-            if (settings.fetchDepth <= 0) {
+            if (settings.fetchDepth == 0) {
                 // Fetch all branches and tags
                 let refSpec = refHelper.getRefSpecForAllHistory(settings.ref, settings.commit);
                 yield git.fetch(refSpec);
@@ -6228,6 +6228,14 @@ function getSource(settings) {
                 }
             }
             else {
+                if (settings.additionalRefs) {
+                    // assume same length
+                    let refSpec = [];
+                    for (let ref of settings.additionalRefs.split(" ")) {
+                        refSpec.push.apply(refSpec, refHelper.getRefSpec(ref, ''));
+                    }
+                    yield git.fetch(refSpec, -1);
+                }
                 const refSpec = refHelper.getRefSpec(settings.ref, settings.commit);
                 yield git.fetch(refSpec, settings.fetchDepth);
             }
@@ -14566,12 +14574,15 @@ function getInputs() {
     }
     core.debug(`ref = '${result.ref}'`);
     core.debug(`commit = '${result.commit}'`);
+    // additional-refs
+    result.additionalRefs = core.getInput('additional-refs');
+    core.debug(`additionalRefs = '${result.additionalRefs}'`);
     // Clean
     result.clean = (core.getInput('clean') || 'true').toUpperCase() === 'TRUE';
     core.debug(`clean = ${result.clean}`);
     // Fetch depth
     result.fetchDepth = Math.floor(Number(core.getInput('fetch-depth') || '1'));
-    if (isNaN(result.fetchDepth) || result.fetchDepth < 0) {
+    if (isNaN(result.fetchDepth)) {
         result.fetchDepth = 0;
     }
     core.debug(`fetch depth = ${result.fetchDepth}`);

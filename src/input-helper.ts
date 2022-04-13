@@ -77,13 +77,17 @@ export function getInputs(): IGitSourceSettings {
   core.debug(`ref = '${result.ref}'`)
   core.debug(`commit = '${result.commit}'`)
 
+  // additional-refs
+  result.additionalRefs = core.getInput('additional-refs')
+  core.debug(`additionalRefs = '${result.additionalRefs}'`)
+
   // Clean
   result.clean = (core.getInput('clean') || 'true').toUpperCase() === 'TRUE'
   core.debug(`clean = ${result.clean}`)
 
   // Fetch depth
   result.fetchDepth = Math.floor(Number(core.getInput('fetch-depth') || '1'))
-  if (isNaN(result.fetchDepth) || result.fetchDepth < 0) {
+  if (isNaN(result.fetchDepth)) {
     result.fetchDepth = 0
   }
   core.debug(`fetch depth = ${result.fetchDepth}`)
